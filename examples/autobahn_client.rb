@@ -6,7 +6,7 @@ EM.epoll
 EM.run do
 
   host   = 'ws://localhost:9001'
-  agent  = "WebSocket-Ruby (Ruby #{RUBY_VERSION})"
+  agent  = "WebSocket-EventMachine-Client (1.0.0)"
   cases  = 0
   skip   = []
 
@@ -32,17 +32,14 @@ EM.run do
         EM.next_tick { run_case.call(n+1) }
 
       else
-        puts "$ Test number #{n}"
         ws = WebSocket::EventMachine::Client.connect(:uri => "#{host}/runCase?case=#{n}&agent=#{CGI.escape agent}")
 
         ws.onmessage do |msg, type|
-          puts "Received #{msg}(#{type})"
           ws.send(msg, :type => type)
         end
 
         ws.onclose do |msg|
-          puts("Closing: #{msg}") if msg
-          run_case.call(n + 1)
+          EM.add_timer(0.1) { run_case.call(n + 1) }
         end
       end
     end

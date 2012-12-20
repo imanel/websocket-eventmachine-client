@@ -2,6 +2,7 @@
 
 WebSocket-EventMachine-Client is Ruby WebSocket client based on EventMachine.
 
+- [Autobahn tests](http://imanel.github.com/websocket-ruby/autobahn/client)
 - [Docs](http://rdoc.info/github/imanel/websocket-eventmachine-client/master/frames)
 
 ## Installation
