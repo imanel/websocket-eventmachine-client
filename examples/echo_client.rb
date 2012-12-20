@@ -1,4 +1,4 @@
-require File.expand_path('../../lib/websocket-eventmachine-server', __FILE__)
+require File.expand_path('../../lib/websocket-eventmachine-client', __FILE__)
 
 EM.epoll
 EM.run do
@@ -6,7 +6,7 @@ EM.run do
   trap("TERM") { stop }
   trap("INT")  { stop }
 
-  ws = WebSocket::EventMachine::Client.connect(:host => "localhost", :port => 9001);
+  ws = WebSocket::EventMachine::Client.connect(:uri => "ws://localhost:9001");
 
   ws.onopen do
     puts "Connected"

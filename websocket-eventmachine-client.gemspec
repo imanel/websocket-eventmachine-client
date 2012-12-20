@@ -12,9 +12,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{WebSocket client for Ruby}
   s.description = %q{WebSocket client for Ruby}
 
-  s.add_dependency 'websocket', '~> 1.0'
-  s.add_dependency 'websocket-native', '~> 1.0'
-  s.add_dependency 'eventmachine', '~> 1.0'
+  s.add_dependency 'websocket-eventmachine-base', '~> 1.0'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
