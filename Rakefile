@@ -10,7 +10,7 @@ Bundler::GemHelper.install_tasks
 
 # task :default => :spec
 
-desc "Run autobahn tests for server"
+desc "Run autobahn tests for client"
 task :autobahn do
-  system('wstest --mode=fuzzingclient --spec=autobahn.json')
+  system('wstest --mode=fuzzingserver --spec=autobahn.json')
 end
