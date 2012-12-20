@@ -1,4 +1,4 @@
-require File.expand_path('../../lib/websocket-eventmachine-server', __FILE__)
+require File.expand_path('../../lib/websocket-eventmachine-client', __FILE__)
 
 require 'cgi'
 
