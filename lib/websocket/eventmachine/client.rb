@@ -74,6 +74,61 @@ module WebSocket
         WebSocket::Frame::Outgoing::Client
       end
 
+      public
+
+      #########################
+      ### Inherited methods ###
+      #########################
+
+      # Called when connection is opened.
+      # No parameters are passed to block
+      def onopen(&blk); super; end
+
+      # Called when connection is closed.
+      # No parameters are passed to block
+      def onclose(&blk); super; end
+
+      # Called when error occurs.
+      # One parameter passed to block:
+      #   error - string with error message
+      def onerror(&blk); super; end
+
+      # Called when message is received.
+      # Two parameters passed to block:
+      #   message - string with received message
+      #   type - type of message. Valid values are :text and :binary
+      def onmessage(&blk); super; end
+
+      # Called when ping message is received
+      # One parameter passed to block:
+      #   message - string with ping message
+      def onping(&blk); super; end
+
+      # Called when pond message is received
+      # One parameter passed to block:
+      #   message - string with pong message
+      def onpong(&blk); super; end
+
+      # Send data
+      # @param data [String] Data to send
+      # @param args [Hash] Arguments for send
+      # @option args [String] :type Type of frame to send - available types are "text", "binary", "ping", "pong" and "close"
+      # @option args [Integer] :code Code for close frame
+      # @return [Boolean] true if data was send, otherwise call on_error if needed
+      def send(data, args = {}); super; end
+
+      # Close connection
+      # @return [Boolean] true if connection is closed immediately, false if waiting for other side to close connection
+      def close(code = 1000, data = nil); super; end
+
+      # Send ping message
+      # @return [Boolean] false if protocol version is not supporting ping requests
+      def ping(data = ''); super; end
+
+      # Send pong message
+      # @return [Boolean] false if protocol version is not supporting pong requests
+      def pong(data = ''); super; end
+
     end
   end
 end
