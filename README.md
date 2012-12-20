@@ -21,7 +21,7 @@ gem 'websocket-eventmachine-client'
 ```ruby
 EM.run do
 
-  ws = WebSocket::EventMachine::Server.connect(:host => "0.0.0.0", :port => 8080)
+  ws = WebSocket::EventMachine::Client.connect(:uri => 'ws://localhost:8080')
 
   ws.onopen do
     puts "Connected"
@@ -42,23 +42,20 @@ end
 
 ## Options
 
-Following options can be passed to WebSocket::EventMachine::Server initializer:
+Following options can be passed to WebSocket::EventMachine::Client initializer:
 
-- `[String] :host` - IP on which server should accept connections. '0.0.0.0' means all.
-- `[Integer] :port` - Port on which server should accept connections.
-- `[Boolean] :secure` - Enable secure WSS protocol. This will enable both SSL encryption and using WSS url and require `tls_options` key.
-- `[Boolean] :secure_proxy` - Enable secure WSS protocol over proxy. This will enable only using WSS url and assume that SSL encryption is handled by some kind proxy(like [Stunnel](http://www.stunnel.org/))
-- `[Hash] :tls_options` - Options for SSL(according to [EventMachine start_tls method](http://eventmachine.rubyforge.org/EventMachine/Connection.html#start_tls-instance_method))
-  - `[String] :private_key_file` - URL to private key file
-  - `[String] :cert_chain_file` - URL to cert chain file
+- `[String] :host` - IP or host of server to connect
+- `[Integer] :port` - Port of server to connect
+- `[String] :uri` - Full URI for server(optional - use instead of host/port combination)
+- `[Integer] :version` - Version of WebSocket to use. Default: 13
 
 ## Methods
 
-Following methods are available for WebSocket::EventMachine::Server object:
+Following methods are available for WebSocket::EventMachine::Client object:
 
 ### onopen
 
-Called after client is connected.
+Called after successfully connecting.
 
 Example:
 
@@ -70,7 +67,7 @@ end
 
 ### onclose
 
-Called after client closed connection.
+Called after closing connection.
 
 Example:
 
@@ -82,7 +79,7 @@ end
 
 ### onmessage
 
-Called when server receive message.
+Called when client receive message.
 
 Parameters:
 
@@ -99,7 +96,7 @@ end
 
 ### onerror
 
-Called when server discovers error.
+Called when client discovers error.
 
 Parameters:
 
@@ -115,7 +112,7 @@ end
 
 ### onping
 
-Called when server receive ping request. Pong request is sent automatically.
+Called when client receive ping request. Pong request is sent automatically.
 
 Parameters:
 
@@ -131,7 +128,7 @@ end
 
 ### onpong
 
-Called when server receive pong response.
+Called when client receive pong response.
 
 Parameters:
 
@@ -147,7 +144,7 @@ end
 
 ### send
 
-Sends message to client.
+Sends message to server.
 
 Parameters:
 
@@ -158,13 +155,13 @@ Parameters:
 Example:
 
 ```ruby
-ws.send "Hello Client!"
+ws.send "Hello Server!"
 ws.send "binary data", :type => :binary
 ```
 
 ### close
 
-Closes connection and optionally send close frame to client.
+Closes connection and optionally send close frame to server.
 
 Parameters:
 
@@ -193,7 +190,7 @@ ws.ping 'Hi'
 
 ### pong
 
-Sends pong request. Usually there should be no need to send this request, as pong responses are sent automatically by server.
+Sends pong request. Usually there should be no need to send this request, as pong responses are sent automatically by client.
 
 Parameters:
 
@@ -204,10 +201,6 @@ Example:
 ``` ruby
 ws.pong 'Hello'
 ```
-
-## Migrating from EM-WebSocket
-
-This library is compatible with EM-WebSocket, so only thing you need to change is running server - you need to change from EM-WebSocket to WebSocket::EventMachine::Server in your application and everything will be working.
 
 ## License
 
