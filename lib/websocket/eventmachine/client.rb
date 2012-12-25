@@ -53,7 +53,7 @@ module WebSocket
       # @private
       def post_init
         @state = :connecting
-        @handshake = WebSocket::Handshake::Client.new(@args)
+        @handshake = ::WebSocket::Handshake::Client.new(@args)
       end
 
       # Called by EventMachine after connecting.
@@ -67,11 +67,11 @@ module WebSocket
       private
 
       def incoming_frame
-        WebSocket::Frame::Incoming::Client
+        ::WebSocket::Frame::Incoming::Client
       end
 
       def outgoing_frame
-        WebSocket::Frame::Outgoing::Client
+        ::WebSocket::Frame::Outgoing::Client
       end
 
       public
