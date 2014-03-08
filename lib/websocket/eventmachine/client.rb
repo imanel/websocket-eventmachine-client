@@ -20,6 +20,8 @@ module WebSocket
       # @option args [String] :host The host IP/DNS name
       # @option args [Integer] :port The port to connect too(default = 80)
       # @option args [Integer] :version Version of protocol to use(default = 13)
+      # @option args [Hash] :headers Additional headers to inject
+      # @option args [Boolean] :ssl Force SSL/TLS connection
       def self.connect(args = {})
         host = nil
         port = nil
@@ -27,10 +29,15 @@ module WebSocket
           uri = URI.parse(args[:uri])
           host = uri.host
           port = uri.port
+          args[:ssl] = true if uri.scheme == 'wss'
         end
         host = args[:host] if args[:host]
         port = args[:port] if args[:port]
-        port ||= 80
+        if args[:ssl]
+          port ||= 443
+        else
+          port ||= 80
+        end
 
         ::EventMachine.connect host, port, self, args
       end
@@ -40,6 +47,8 @@ module WebSocket
       # @option args [String] :host The host IP/DNS name
       # @option args [Integer] :port The port to connect too(default = 80)
       # @option args [Integer] :version Version of protocol to use(default = 13)
+      # @option args [Hash] :headers Additional headers to inject
+      # @option args [Boolean] :ssl Force SSL/TLS connection
       def initialize(args)
         @args = args
       end
@@ -54,14 +63,32 @@ module WebSocket
       def post_init
         @state = :connecting
         @handshake = ::WebSocket::Handshake::Client.new(@args)
+        @req = @handshake.to_s
+        if @args[:headers]
+          @req.chop!
+          @req += @args[:headers].each_pair.collect{|k,v| "#{k}: #{v}\r\n"}.join
+          @req += "\r\n"
+        end
       end
 
       # Called by EventMachine after connecting.
-      # Sends handshake to server
+      # Sends handshake to server or starts TLS
       # Eventmachine internal
       # @private
       def connection_completed
-        send(@handshake.to_s, :type => :plain)
+        if @args[:ssl]
+          start_tls
+        else
+          send(@req, :type => :plain)
+        end
+      end
+
+      # Called by EventMachine after TLS handshake.
+      # Sends websocket handshake
+      # Eventmachine internal
+      # @private
+      def ssl_handshake_completed
+        send(@req, :type => :plain)
       end
 
       private
