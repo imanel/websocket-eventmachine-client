@@ -6,7 +6,7 @@ EM.epoll
 EM.run do
 
   host   = 'ws://localhost:9001'
-  agent  = "WebSocket-EventMachine-Client (1.0.0)"
+  agent  = "WebSocket-EventMachine-Client (1.0.1)"
   cases  = 0
   skip   = []
 
