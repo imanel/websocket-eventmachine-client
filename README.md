@@ -36,7 +36,9 @@ EM.run do
     puts "Disconnected"
   end
 
-  ws.send "Hello Server!"
+  EventMachine.next_tick do
+    ws.send "Hello Server!"
+  end
 
 end
 ```
