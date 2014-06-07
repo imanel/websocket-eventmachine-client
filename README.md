@@ -51,6 +51,7 @@ Following options can be passed to WebSocket::EventMachine::Client initializer:
 - `[Integer] :port` - Port of server to connect
 - `[String] :uri` - Full URI for server(optional - use instead of host/port combination)
 - `[Integer] :version` - Version of WebSocket to use. Default: 13
+- `[Hash] :headers` - HTTP headers to use in the handshake. Example: `{'Cookie' => 'COOKIENAME=Value'}`
 
 ## Methods
 
