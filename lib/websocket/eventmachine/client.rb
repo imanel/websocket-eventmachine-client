@@ -20,6 +20,7 @@ module WebSocket
       # @option args [String] :host The host IP/DNS name
       # @option args [Integer] :port The port to connect too(default = 80)
       # @option args [Integer] :version Version of protocol to use(default = 13)
+      # @option args [Hash] :headers HTTP headers to use in the handshake
       def self.connect(args = {})
         host = nil
         port = nil
@@ -40,6 +41,7 @@ module WebSocket
       # @option args [String] :host The host IP/DNS name
       # @option args [Integer] :port The port to connect too(default = 80)
       # @option args [Integer] :version Version of protocol to use(default = 13)
+      # @option args [Hash] :headers HTTP headers to use in the handshake
       def initialize(args)
         @args = args
       end

@@ -32,8 +32,8 @@ EM.run do
     puts "Received message: #{msg}"
   end
 
-  ws.onclose do
-    puts "Disconnected"
+  ws.onclose do |code, reason|
+    puts "Disconnected with status code: #{code}"
   end
 
   EventMachine.next_tick do
@@ -51,6 +51,7 @@ Following options can be passed to WebSocket::EventMachine::Client initializer:
 - `[Integer] :port` - Port of server to connect
 - `[String] :uri` - Full URI for server(optional - use instead of host/port combination)
 - `[Integer] :version` - Version of WebSocket to use. Default: 13
+- `[Hash] :headers` - HTTP headers to use in the handshake. Example: `{'Cookie' => 'COOKIENAME=Value'}`
 
 ## Methods
 
@@ -72,11 +73,16 @@ end
 
 Called after closing connection.
 
+Parameters:
+
+- `[Integer] code` - status code
+- `[String] reason` - optional reason for closure
+
 Example:
 
 ```ruby
-ws.onclose do
-  puts "Client disconnected"
+ws.onclose do |code, reason|
+  puts "Client disconnected with status code: #{code} and reason: #{reason}"
 end
 ```
 
