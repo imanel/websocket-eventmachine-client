@@ -73,11 +73,16 @@ end
 
 Called after closing connection.
 
+Parameters:
+
+- `[Integer] code` - status code
+- `[String] reason` - optional reason for closure
+
 Example:
 
 ```ruby
-ws.onclose do
-  puts "Client disconnected"
+ws.onclose do |code, reason|
+  puts "Client disconnected with status code: #{code} and reason: #{reason}"
 end
 ```
 
