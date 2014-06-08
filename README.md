@@ -32,8 +32,8 @@ EM.run do
     puts "Received message: #{msg}"
   end
 
-  ws.onclose do
-    puts "Disconnected"
+  ws.onclose do |code, reason|
+    puts "Disconnected with status code: #{code}"
   end
 
   EventMachine.next_tick do
