@@ -52,6 +52,7 @@ Following options can be passed to WebSocket::EventMachine::Client initializer:
 - `[String] :uri` - Full URI for server(optional - use instead of host/port combination)
 - `[Integer] :version` - Version of WebSocket to use. Default: 13
 - `[Hash] :headers` - HTTP headers to use in the handshake. Example: `{'Cookie' => 'COOKIENAME=Value'}`
+- `[Boolean] :ssl` - Force SSL/TLS regardless of URI scheme or port
 
 ## Methods
 
