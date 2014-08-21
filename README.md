@@ -158,7 +158,7 @@ Sends message to server.
 
 Parameters:
 
-- `[String] message` - message that should be sent to client
+- `[String] message` - message that should be sent to server
 - `[Hash] params` - params for message(optional)
   - `[Symbol] :type` - type of message. Valid values are :text, :binary(default is :text)
 
