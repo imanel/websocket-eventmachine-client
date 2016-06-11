@@ -54,6 +54,8 @@ Following options can be passed to WebSocket::EventMachine::Client initializer:
 - `[Hash] :headers` - HTTP headers to use in the handshake. Example: `{'Cookie' => 'COOKIENAME=Value'}`
 - `[Boolean] :ssl` - Force SSL/TLS regardless of URI scheme or port
 
+If you wish to connect to a UNIX socket, specify the `:host` option as the full path to the local socket and omit `:port`.
+
 ## Methods
 
 Following methods are available for WebSocket::EventMachine::Client object:

@@ -19,6 +19,7 @@ module WebSocket
       # @param args [Hash] The request arguments
       # @option args [String] :host The host IP/DNS name
       # @option args [Integer] :port The port to connect too(default = 80)
+      # @option args [String] :uri Full URI for server(optional - use instead of host/port combination)
       # @option args [Integer] :version Version of protocol to use(default = 13)
       # @option args [Hash] :headers HTTP headers to use in the handshake
       # @option args [Boolean] :ssl Force SSL/TLS connection
@@ -37,6 +38,10 @@ module WebSocket
           port ||= 443
         else
           port ||= 80
+        end
+        
+        if !(args.key?(:port) || args.key?(:uri)) && File.socket?(args[:host])
+          port = nil
         end
 
         ::EventMachine.connect host, port, self, args
