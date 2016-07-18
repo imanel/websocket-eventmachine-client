@@ -44,7 +44,7 @@ module WebSocket
       end
       
       # Make a websocket connection to a UNIX-domain socket.
-      # @param socketname[String] Unix domain socket (local fully-qualified path) you want to use
+      # @param socketname [String] Unix domain socket (local fully-qualified path) you want to use
       # @param args [Hash] Arguments for connection      
       # @option args [Integer] :version Version of protocol to use(default = 13)
       # @option args [Hash] :headers HTTP headers to use in the handshake
