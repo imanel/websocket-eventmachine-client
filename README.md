@@ -43,6 +43,19 @@ EM.run do
 end
 ```
 
+### UNIX Domain client
+
+You can connect to a local UNIX domain socket instead of a remote `TCP` socket using `connect_unix_domain`:
+
+```ruby
+EM.run do
+  ws = WebSocket::EventMachine::Client.connect_unix_domain('/var/run/wss.sock')
+  # . . .
+end
+```
+
+You can optionally specify the `:version`, `:headers`, and `:ssl` options to the method.
+
 ## Options
 
 Following options can be passed to WebSocket::EventMachine::Client initializer:
@@ -53,8 +66,6 @@ Following options can be passed to WebSocket::EventMachine::Client initializer:
 - `[Integer] :version` - Version of WebSocket to use. Default: 13
 - `[Hash] :headers` - HTTP headers to use in the handshake. Example: `{'Cookie' => 'COOKIENAME=Value'}`
 - `[Boolean] :ssl` - Force SSL/TLS regardless of URI scheme or port
-
-If you wish to connect to a UNIX socket, specify the `:host` option as the full path to the local socket and omit `:port`.
 
 ## Methods
 
