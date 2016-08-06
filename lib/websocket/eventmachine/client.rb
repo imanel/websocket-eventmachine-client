@@ -125,7 +125,7 @@ module WebSocket
       #   message - string with ping message
       def onping(&blk); super; end
 
-      # Called when pond message is received
+      # Called when pong message is received
       # One parameter passed to block:
       #   message - string with pong message
       def onpong(&blk); super; end
