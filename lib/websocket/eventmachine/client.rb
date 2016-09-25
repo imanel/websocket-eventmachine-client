@@ -44,14 +44,13 @@ module WebSocket
       end
       
       # Make a websocket connection to a UNIX-domain socket.
-      # @param socketname [String] Unix domain socket (local fully-qualified path) you want to use
-      # @param args [Hash] Arguments for connection      
+      # @param socketname [String] Unix domain socket (local fully-qualified path)
+      # @param args [Hash] Arguments for connection
       # @option args [Integer] :version Version of protocol to use(default = 13)
       # @option args [Hash] :headers HTTP headers to use in the handshake
-      # @option args [Boolean] :ssl Force SSL/TLS connection
       def self.connect_unix_domain(socketname, args = {})
         fail ArgumentError, 'invalid socket' unless File.socket?(socketname)
-        args[:host] = 'localhost'
+        args[:host] ||= 'localhost'
         ::EventMachine.connect_unix_domain socketname, self, args
       end
 
