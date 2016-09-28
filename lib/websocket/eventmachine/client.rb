@@ -19,6 +19,7 @@ module WebSocket
       # @param args [Hash] The request arguments
       # @option args [String] :host The host IP/DNS name
       # @option args [Integer] :port The port to connect too(default = 80)
+      # @option args [String] :uri Full URI for server(optional - use instead of host/port combination)
       # @option args [Integer] :version Version of protocol to use(default = 13)
       # @option args [Hash] :headers HTTP headers to use in the handshake
       # @option args [Boolean] :ssl Force SSL/TLS connection
@@ -40,6 +41,17 @@ module WebSocket
         end
 
         ::EventMachine.connect host, port, self, args
+      end
+      
+      # Make a websocket connection to a UNIX-domain socket.
+      # @param socketname [String] Unix domain socket (local fully-qualified path)
+      # @param args [Hash] Arguments for connection
+      # @option args [Integer] :version Version of protocol to use(default = 13)
+      # @option args [Hash] :headers HTTP headers to use in the handshake
+      def self.connect_unix_domain(socketname, args = {})
+        fail ArgumentError, 'invalid socket' unless File.socket?(socketname)
+        args[:host] ||= 'localhost'
+        ::EventMachine.connect_unix_domain socketname, self, args
       end
 
       # Initialize connection
