@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0
+
+- support for unix domain connection
+
 ## 1.1.0
 
 - ssl support
