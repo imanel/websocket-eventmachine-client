@@ -27,7 +27,7 @@ EM.run do
   end
 
   ws.onping do |msg|
-    puts "Receied ping: #{msg}"
+    puts "Received ping: #{msg}"
   end
 
   ws.onpong do |msg|
