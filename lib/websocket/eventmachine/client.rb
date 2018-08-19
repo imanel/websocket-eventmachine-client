@@ -35,6 +35,8 @@ module WebSocket
         host = args[:host] if args[:host]
         port = args[:port] if args[:port]
         if args[:ssl]
+          args[:tls] ||= {}
+          args[:tls][:sni_hostname] ||= host
           port ||= 443
         else
           port ||= 80
