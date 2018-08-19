@@ -23,6 +23,7 @@ module WebSocket
       # @option args [Integer] :version Version of protocol to use(default = 13)
       # @option args [Hash] :headers HTTP headers to use in the handshake
       # @option args [Boolean] :ssl Force SSL/TLS connection
+      # @option args [Hash] :tls TLS options hash to be passed to EM start_tls
       def self.connect(args = {})
         host = nil
         port = nil
