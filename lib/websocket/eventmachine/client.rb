@@ -83,7 +83,7 @@ module WebSocket
       # @private
       def connection_completed
         if @args[:ssl]
-          start_tls
+          start_tls @args[:tls]
         else
           send(@handshake.to_s, :type => :plain)
         end
