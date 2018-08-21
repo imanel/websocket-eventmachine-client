@@ -23,6 +23,7 @@ module WebSocket
       # @option args [Integer] :version Version of protocol to use(default = 13)
       # @option args [Hash] :headers HTTP headers to use in the handshake
       # @option args [Boolean] :ssl Force SSL/TLS connection
+      # @option args [Hash] :tls TLS options hash to be passed to EM start_tls
       def self.connect(args = {})
         host = nil
         port = nil
@@ -35,6 +36,8 @@ module WebSocket
         host = args[:host] if args[:host]
         port = args[:port] if args[:port]
         if args[:ssl]
+          args[:tls] ||= {}
+          args[:tls][:sni_hostname] ||= host
           port ||= 443
         else
           port ||= 80
@@ -83,7 +86,7 @@ module WebSocket
       # @private
       def connection_completed
         if @args[:ssl]
-          start_tls
+          start_tls @args[:tls]
         else
           send(@handshake.to_s, :type => :plain)
         end
