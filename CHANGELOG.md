@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.0
+
+- support for TLS
+
 ## 1.2.0
 
 - support for unix domain connection
